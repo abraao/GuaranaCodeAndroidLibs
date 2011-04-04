@@ -1,5 +1,6 @@
 package com.guaranacode.android.libs.http;
 
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URLDecoder;
@@ -130,6 +131,9 @@ public final class HttpClient {
                 return null;
             }
 
+            // Mark as a non-persistent connection.
+            method.addHeader("Connection", "close");
+            
             if(!StringUtil.isNullOrEmpty(contentType)) {
                 method.addHeader("Content-Type", contentType);
             }
@@ -144,7 +148,10 @@ public final class HttpClient {
                 final HttpEntity e = response.getEntity();
                 
                 if (null != e) {
-                    result = StringUtil.fromStream(e.getContent());
+                    final InputStream in = e.getContent();
+                    result = StringUtil.fromStream(in);
+                    in.close(); // Close the stream and trigger connection release.
+                    e.consumeContent();
                 }
             }
         } catch (Exception e) {

@@ -15,7 +15,7 @@ public final class StringUtil {
     }
 
     /**
-     * Read the whole stream into a string.
+     * Read the whole stream into a string. The connection is not closed by this method.
      * @param stream
      * @return
      */
