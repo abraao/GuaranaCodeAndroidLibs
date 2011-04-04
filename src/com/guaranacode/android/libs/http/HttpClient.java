@@ -48,18 +48,29 @@ public final class HttpClient {
      * @return
      */
     public static String get(String url, Map<String, String> params, String contentType) {
-        return httpOperation(HTTP_GET, url, params, null, contentType);
+        return httpOperation(HTTP_GET, url, params, null, contentType, null);
     }
     
     /**
-     * Perform a HTTP post with the given body.
+     * Perform a HTTP post with the given body and content type.
      * @param url
      * @param body
      * @param contentType   The content type of this HTTP request (optional).
      * @return
      */
     public static String post(String url, String body, String contentType) {
-        return httpOperation(HTTP_POST, url, null, body, contentType);
+        return httpOperation(HTTP_POST, url, null, body, contentType, null);
+    }
+    
+    /**
+     * Perform a HTTP post with the given body and content type, accepting responses specified in the accepted parameter.
+     * @param url
+     * @param body
+     * @param contentType   The content type of this HTTP request (optional).
+     * @return
+     */
+    public static String post(String url, String body, String contentType, String accept) {
+        return httpOperation(HTTP_POST, url, null, body, contentType, accept);
     }
     
     /**
@@ -69,8 +80,15 @@ public final class HttpClient {
      * @param params    The params used for a HTTP GET (optional).
      * @param body  The body used in a HTTP POST (optional).
      * @param contentType   The content type of this HTTP request (optional).
+     * @param accept    The accepted response types (optional).
      */
-    private static String httpOperation(int httpMethod, String url, Map<String, String> params, String body, String contentType) {
+    private static String httpOperation(
+            int httpMethod,
+            String url,
+            Map<String, String> params,
+            String body,
+            String contentType,
+            String accept) {
         if(StringUtil.isNullOrEmpty(url)) {
             return null;
         }
@@ -114,6 +132,10 @@ public final class HttpClient {
 
             if(!StringUtil.isNullOrEmpty(contentType)) {
                 method.addHeader("Content-Type", contentType);
+            }
+            
+            if(!StringUtil.isNullOrEmpty(accept)) {
+                method.addHeader("Accept", accept);
             }
             
             final HttpResponse response = client.execute(method);
