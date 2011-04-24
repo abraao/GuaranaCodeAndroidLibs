@@ -7,15 +7,19 @@ This is generic code I've reused in certain projects.
 Follow the instructions this project can be added to the build path of another Eclipse project.
 
 First configure this project correctly if hasn't already been configured:
-1. Add this project as a Java project in Eclipse.
-2. Right-click on this project, then go to "Properties".
-3. In the Properties screen, select libraries.
-4. The only library that should be there is the android.jar corresponding to the API level you want to support. e.g. \android-sdk-windows\platforms\android-7\android.jar
-5. You can add this jar by clicking on "Add External JARs".
+1. Add this project as an Android project in Eclipse.
+2. Right click on the project, select "Properties".
+3. In the left side, click on "Android".
+4. Under the "Library" section on the bottom right, mark "Is Library" and click on "Ok".
 
-Next, add this project to the build path of another Eclipse project:
+Next, use this project in an Android project within Eclipse:
 1. Right click on that project, then go to "Properties".
-2. Select the "Projects" tab, click on add, then add this project.
+2. Right click on the project, select "Properties".
+3. In the left side, click on "Android".
+4. Under the "Library" section on the bottom right, click on "Add", then select the GuaranaCodeAndroidLibs project and click on "Ok".
+
+## Other IDEs / development environments
+Send an email to me.
 
 ## Contact
 abraao@guaranacode.com
