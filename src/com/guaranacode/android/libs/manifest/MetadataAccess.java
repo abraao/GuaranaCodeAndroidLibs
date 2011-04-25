@@ -1,6 +1,6 @@
 package com.guaranacode.android.libs.manifest;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -16,14 +16,14 @@ public class MetadataAccess {
     
     /**
      * Returns the string value associated with the metadata with the given name, or null on error.
-     * @param activity
+     * @param applicationContext
      * @return
      */
-    public static String getString(Activity activity, String metadataName) {
+    public static String getString(Context applicationContext, String metadataName) {
         ApplicationInfo ai;
         
         try {
-            ai = activity.getPackageManager().getApplicationInfo(activity.getPackageName(), PackageManager.GET_META_DATA);
+            ai = applicationContext.getPackageManager().getApplicationInfo(applicationContext.getPackageName(), PackageManager.GET_META_DATA);
         } catch (NameNotFoundException e) {
             Log.e("Metadata", "Error getting metadata with name " + metadataName, e);
             
